@@ -17,11 +17,10 @@ builder.Services.AddSwaggerGen(options =>
         Version = "1.0",
         Title = "Rainfall Api",
         Description = "An API which provides rainfall reading data",
-        TermsOfService = new Uri("https://www.sorted.com"),
         Contact = new OpenApiContact
         {
-            Name = "Rainfall",
-            Url = new Uri("https://environment.data.gov.uk/flood-monitoring")
+            Name = "Sorted",
+            Url = new Uri("https://www.sorted.com")
         }
     });
 
@@ -35,7 +34,19 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
+    //app.UseSwagger();
+
+    app.UseSwagger(c =>
+    {
+        c.PreSerializeFilters.Add((swaggerDoc, request) =>
+        {
+            swaggerDoc.Servers = new List<OpenApiServer>()
+            {
+                new OpenApiServer() { Description = "Rainfall Api", Url = "https://environment.data.gov.uk" }
+            };
+        });
+    });
+
     app.UseSwaggerUI();
 }
 

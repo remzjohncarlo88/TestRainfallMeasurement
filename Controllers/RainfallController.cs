@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Xml.Linq;
 using TestRainfallMeasurement.Models;
 
 namespace TestRainfallMeasurement.Controllers
@@ -7,7 +8,6 @@ namespace TestRainfallMeasurement.Controllers
     /// Rainfall Controller
     /// </summary>
     [ApiController]
-    [Route("[controller]")]
     public class RainfallController : ControllerBase
     {
         private readonly RainfallContext _rainfallContext;
@@ -21,12 +21,19 @@ namespace TestRainfallMeasurement.Controllers
             _rainfallContext = context;
         }
 
+        // https://environment.data.gov.uk/flood-monitoring/data/readings?parameter=rainfall&_limit=100
         /// <summary>
         /// Get the list of rainfall measurements
         /// </summary>
-        /// <returns></returns>
-        [HttpGet(Name = "GetAllRainfall")]
-        public ActionResult<RainModel> GetAll()
+        /// <returns>Rainfall list</returns>
+        [HttpGet, Route("flood-monitoring/data/readings")]
+        [ProducesResponseType<RainModel>(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public ActionResult<RainModel> GetAll(
+            [FromQuery(Name = "rainfall")] bool rainfall,
+            [FromQuery(Name = "_limit")] int limit)
         {
             return _rainfallContext.Rains.First();
         }
