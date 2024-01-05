@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
 using TestRainfallMeasurement.Models;
 
@@ -8,6 +9,7 @@ namespace TestRainfallMeasurement.Controllers
     /// Rainfall Controller
     /// </summary>
     [ApiController]
+    [EnableCors("AllowCors")]
     public class RainfallController : ControllerBase
     {
         private readonly RainfallContext _rainfallContext;
@@ -27,15 +29,17 @@ namespace TestRainfallMeasurement.Controllers
         /// </summary>
         /// <returns>Rainfall list</returns>
         [HttpGet, Route("flood-monitoring/data/readings")]
+        [EnableCors]
         [ProducesResponseType<RainModel>(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<RainModel> GetAll(
-            [FromQuery(Name = "rainfall")] bool rainfall,
-            [FromQuery(Name = "_limit")] int limit)
+            [FromQuery] RequestModel requestModel)
         {
+            var r = _rainfallContext.Rains.FirstOrDefault();
             return _rainfallContext.Rains.First();
         }
     }
 }
+

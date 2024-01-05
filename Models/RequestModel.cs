@@ -11,12 +11,12 @@ namespace TestRainfallMeasurement.Models
         /// <summary>
         /// rainfall detection
         /// </summary>
-        [DisplayName("rainfall"), DefaultValue(true), Description("Rainfall Set")]
-        public bool rainfall { get; set; }
+        [DefaultValue("rainfall"), Description("Rainfall Set")]
+        public string? parameter { get; set; }
         /// <summary>
         /// display count
         /// </summary>
-        [DisplayName("_limit"), MinLength(1), MaxLength(100), Required, Description("The number of readings to return")]
-        public int limit { get; set; }
+        [DefaultValue(10), MinLength(1), MaxLength(100), Required, Description("The number of readings to return")]
+        public int _limit { get; set; }
     }
 }
