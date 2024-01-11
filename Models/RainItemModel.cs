@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
 namespace TestRainfallMeasurement.Models
@@ -6,19 +7,20 @@ namespace TestRainfallMeasurement.Models
     /// <summary>
     /// Iterates the rain measurement
     /// </summary>
+    [DataContract]
     public class RainItemModel
     {
         /// <summary>
         /// Id
         /// </summary>
-        [JsonPropertyName("@id"), DisplayName("Id")]
+        [DataMember(Name = "@id")]
         public string? Id { get; set; }
         DateTime _date;
         /// <summary>
         /// Date
         /// </summary>
-        [JsonPropertyName("DateTime")]
-        public DateTime DateTime
+        [DataMember(Name = "dateTime")]
+        public DateTime Date
         {
             get { return _date; }
             set { _date = Convert.ToDateTime(value); }
@@ -26,10 +28,12 @@ namespace TestRainfallMeasurement.Models
         /// <summary>
         /// Measurement
         /// </summary>
+        [DataMember(Name = "measure")]
         public string? Measure { get; set; }
         /// <summary>
         /// Value
         /// </summary>
+        [DataMember(Name = "value")]
         public decimal Value { get; set; }
     }
 }
