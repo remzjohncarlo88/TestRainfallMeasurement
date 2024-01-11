@@ -10,8 +10,8 @@ namespace TestRainfallMeasurement.Services
         /// <summary>
         /// GetRainfallById
         /// </summary>
-        /// <param name="id">rain id</param>
+        /// <param name="request">rainfall params</param>
         /// <returns>Rainfall list</returns>
-        List<RainItemModel> GetRainfallById(string id);
+        List<RainItemModel> GetRainfallById(RequestModel request);
     }
 }

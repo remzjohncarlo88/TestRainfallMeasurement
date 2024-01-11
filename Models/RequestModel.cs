@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace TestRainfallMeasurement.Models
 {
@@ -9,14 +9,14 @@ namespace TestRainfallMeasurement.Models
     public class RequestModel
     {
         /// <summary>
-        /// rainfall detection
+        /// rainfall id
         /// </summary>
-        [DefaultValue("rainfall"), Description("Rainfall Set")]
-        public string? parameter { get; set; }
+        [Description("Rainfall Id")]
+        public string? Id { get; set; }
         /// <summary>
         /// display count
         /// </summary>
         [DefaultValue(10), MinLength(1), MaxLength(100), Required, Description("The number of readings to return")]
-        public int _limit { get; set; }
+        public int Limit { get; set; }
     }
 }

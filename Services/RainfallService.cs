@@ -21,11 +21,11 @@ namespace TestRainfallMeasurement.Services
         /// <summary>
         /// GetRainfallById
         /// </summary>
-        /// <param name="id">rain id</param>
+        /// <param name="request">rainfall params</param>
         /// <returns>Rainfall list</returns>
-        public List<RainItemModel> GetRainfallById(string id)
+        public List<RainItemModel> GetRainfallById(RequestModel request)
         {
-            List<RainItemModel> rainItems = _rainfallRepository.GetRainfallById(id).Result.ToList();
+            List<RainItemModel> rainItems = _rainfallRepository.GetRainfallById(request).Result.ToList();
 
             return rainItems;
         }

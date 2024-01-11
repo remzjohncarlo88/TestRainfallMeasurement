@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel;
+using System.Text.Json.Serialization;
 
 namespace TestRainfallMeasurement.Models
 {
@@ -10,13 +11,18 @@ namespace TestRainfallMeasurement.Models
         /// <summary>
         /// Id
         /// </summary>
-        [JsonPropertyName("@id")]
+        [JsonPropertyName("@id"), DisplayName("Id")]
         public string? Id { get; set; }
+        DateTime _date;
         /// <summary>
         /// Date
         /// </summary>
         [JsonPropertyName("DateTime")]
-        public DateTime Date { get; set; }
+        public DateTime DateTime
+        {
+            get { return _date; }
+            set { _date = Convert.ToDateTime(value); }
+        }
         /// <summary>
         /// Measurement
         /// </summary>

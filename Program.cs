@@ -1,13 +1,11 @@
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using TestRainfallMeasurement.Respositories;
+using TestRainfallMeasurement.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
 // Add services to the container.
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
@@ -30,26 +28,17 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 
+builder.Services.AddScoped<IRainfallRepository, RainfallRepository>();
+builder.Services.AddScoped<IRainfallService, RainfallService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger(c =>
-    {
-        c.PreSerializeFilters.Add((swaggerDoc, request) =>
-        {
-            swaggerDoc.Servers = new List<OpenApiServer>()
-            {
-                new OpenApiServer() { Description = "Rainfall Api", Url = "https://environment.data.gov.uk" }
-            };
-        });
-    });
-
+    app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-
 
 app.UseHttpsRedirection();
 

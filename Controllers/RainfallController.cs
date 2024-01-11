@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Mvc;
-using System.Xml.Linq;
+﻿using Microsoft.AspNetCore.Mvc;
 using TestRainfallMeasurement.Models;
+using TestRainfallMeasurement.Services;
 
 namespace TestRainfallMeasurement.Controllers
 {
@@ -11,33 +10,39 @@ namespace TestRainfallMeasurement.Controllers
     [ApiController]
     public class RainfallController : ControllerBase
     {
-        private readonly RainfallContext _rainfallContext;
-        
-       /// <summary>
-       /// Rainfall controller
-       /// </summary>
-       /// <param name="context">rainfall context</param>
-        public RainfallController(RainfallContext context)
+        private readonly IRainfallService _rainfallService;
+
+        /// <summary>
+        /// Rainfall controller
+        /// </summary>
+        /// <param name="rainfallService">rainfall service object</param>
+        public RainfallController(IRainfallService rainfallService)
         {
-            _rainfallContext = context;
+            _rainfallService = rainfallService;
         }
 
         /// <summary>
         /// Get the list of rainfall measurements
         /// </summary>
-        /// <param name="requestModel">contains parameter and limit</param>
-        /// <returns>List of rainfall measurements</returns>
-        [HttpGet, Route("flood-monitoring/data/readings")]
+        /// <param name="request">rain id and limit per request</param>
+        /// <returns>RainItem list</returns>
+        [HttpGet("GetRainfallById")]
         [Produces("application/json")]
-        [ProducesResponseType<RainModel>(StatusCodes.Status200OK)]
+        [ProducesResponseType<RainItemModel>(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<RainModel> GetAll(
-            [FromQuery] RequestModel requestModel)
+        public IActionResult GetRainfallById(string i)
         {
-            var r = _rainfallContext.Rains.FirstOrDefault();
-            return _rainfallContext.Rains.First();
+            RequestModel request = new RequestModel();
+            request.Id = "52203-rainfall-tipping_bucket_raingauge-t-15_min-mm";
+            request.Limit = 10;
+            var rainfallList = _rainfallService.GetRainfallById(request);
+
+            if (rainfallList == null)
+                return NotFound();
+
+            return Ok(rainfallList);
         }
     }
 }

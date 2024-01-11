@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System.Net.Http.Headers;
 using TestRainfallMeasurement.Models;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace TestRainfallMeasurement.Respositories
 {
@@ -13,15 +11,15 @@ namespace TestRainfallMeasurement.Respositories
         /// <summary>
         /// GetRainfallById
         /// </summary>
-        /// <param name="id">rainfall id</param>
+        /// <param name="request">rainfall params</param>
         /// <returns>list of rainfallk measurements</returns>
-        public async Task<IEnumerable<RainItemModel>> GetRainfallById(string id)
+        public async Task<IEnumerable<RainItemModel>> GetRainfallById(RequestModel request)
         {
             RainModel rainfallList = new RainModel();
 
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync(string.Concat("http://environment.data.gov.uk/flood-monitoring/id/measures/", id, "/readings")))
+                using (var response = await httpClient.GetAsync(string.Concat("http://environment.data.gov.uk/flood-monitoring/id/measures/", request.Id, "/readings?_sorted&_limit=", request.Limit)))
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
                     {

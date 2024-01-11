@@ -10,8 +10,8 @@ namespace TestRainfallMeasurement.Respositories
         /// <summary>
         /// GetRainfallById
         /// </summary>
-        /// <param name="id">rainfall id</param>
+        /// <param name="request">rainfall params</param>
         /// <returns></returns>
-        Task<IEnumerable<RainItemModel>> GetRainfallById(string id);
+        Task<IEnumerable<RainItemModel>> GetRainfallById(RequestModel request);
     }
 }
