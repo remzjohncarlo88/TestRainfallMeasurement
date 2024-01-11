@@ -1,19 +1,10 @@
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var MyAllowSpecificOrigins = "AllowCors";
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy =>
-                      {
-                          policy.WithOrigins("http://localhost:5011")
-                          .AllowAnyMethod()
-                          .AllowAnyHeader();
-                      });
-});
+
 
 // Add services to the container.
 
@@ -41,8 +32,6 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
-
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -60,12 +49,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
-
-app.UseCors(MyAllowSpecificOrigins);
 
 app.Run();

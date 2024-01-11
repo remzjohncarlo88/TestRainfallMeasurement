@@ -1,4 +1,6 @@
-﻿namespace TestRainfallMeasurement.Models
+﻿using System.Text.Json.Serialization;
+
+namespace TestRainfallMeasurement.Models
 {
     /// <summary>
     /// Iterates the rain measurement
@@ -6,9 +8,15 @@
     public class RainItemModel
     {
         /// <summary>
+        /// Id
+        /// </summary>
+        [JsonPropertyName("@id")]
+        public string? Id { get; set; }
+        /// <summary>
         /// Date
         /// </summary>
-        public DateTime DateTime { get; set; }
+        [JsonPropertyName("DateTime")]
+        public DateTime Date { get; set; }
         /// <summary>
         /// Measurement
         /// </summary>

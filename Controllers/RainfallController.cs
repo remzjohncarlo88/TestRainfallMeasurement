@@ -9,7 +9,6 @@ namespace TestRainfallMeasurement.Controllers
     /// Rainfall Controller
     /// </summary>
     [ApiController]
-    [EnableCors("AllowCors")]
     public class RainfallController : ControllerBase
     {
         private readonly RainfallContext _rainfallContext;
@@ -23,13 +22,13 @@ namespace TestRainfallMeasurement.Controllers
             _rainfallContext = context;
         }
 
-        // https://environment.data.gov.uk/flood-monitoring/data/readings?parameter=rainfall&_limit=100
         /// <summary>
         /// Get the list of rainfall measurements
         /// </summary>
-        /// <returns>Rainfall list</returns>
+        /// <param name="requestModel">contains parameter and limit</param>
+        /// <returns>List of rainfall measurements</returns>
         [HttpGet, Route("flood-monitoring/data/readings")]
-        [EnableCors]
+        [Produces("application/json")]
         [ProducesResponseType<RainModel>(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
