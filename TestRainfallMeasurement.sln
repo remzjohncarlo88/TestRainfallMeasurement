@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestRainfallMeasurement", "TestRainfallMeasurement.csproj", "{949F77DD-31FD-4706-9D46-38A6AFEB7188}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RainfallUnitTest", "..\RainfallUnitTest\RainfallUnitTest.csproj", "{3412B28E-2A08-4EF4-BECE-D357A323E99F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RainfallUnitTest", "..\RainfallUnitTest\RainfallUnitTest.csproj", "{3412B28E-2A08-4EF4-BECE-D357A323E99F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
