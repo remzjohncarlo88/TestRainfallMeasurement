@@ -28,7 +28,7 @@ namespace RainfallUnitTest.Services
         /// <returns>Rainfall list</returns>
         public List<RainItemModel> GetRainfallById(RequestModel request)
         {
-            return _rainItems.Select;
+            return _rainItems.Take(request.Limit).ToList();
         }
     }
 }
